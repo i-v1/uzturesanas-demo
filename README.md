@@ -1,1 +1,1 @@
-Šī ir versija 1.0
+Šī ir versija 2.0
