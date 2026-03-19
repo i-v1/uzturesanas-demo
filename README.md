@@ -28,3 +28,7 @@ $w | Out-File $path
 
 $w | Group-Object ProviderName | Sort Count -Descending | Select -First 3 |
 Out-File $path -Append
+Get-Process | Where-Object {
+    $_.WorkingSet -gt 150MB -and $_.Name -ne "msedge"
+} | Select Name, Id, WorkingSet |
+Export-Csv "$env:USERPROFILE\Documents\LielieProcesi.csv"
