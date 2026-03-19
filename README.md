@@ -18,3 +18,13 @@ print ("Partition nosaukums:")
 for p in partitions:
     label = p.split(",")[0]
     print (label)
+$w = Get-WinEvent -LogName Application | Where-Object {
+    $_.LevelDisplayName -eq "Warning" -and $_.TimeCreated -gt (Get-Date).AddDays(-3)
+}
+
+$path = "$env:USERPROFILE\Documents\Warnings.txt"
+
+$w | Out-File $path
+
+$w | Group-Object ProviderName | Sort Count -Descending | Select -First 3 |
+Out-File $path -Append
