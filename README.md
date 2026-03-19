@@ -32,3 +32,8 @@ Get-Process | Where-Object {
     $_.WorkingSet -gt 150MB -and $_.Name -ne "msedge"
 } | Select Name, Id, WorkingSet |
 Export-Csv "$env:USERPROFILE\Documents\LielieProcesi.csv"
+$f = Get-ChildItem "$env:USERPROFILE\Downloads" -Filter *.pdf | Where-Object {
+    $_.LastWriteTime -gt (Get-Date).AddHours(-48)
+}
+
+Compress-Archive -Path $f -DestinationPath "$env:USERPROFILE\Documents\PDF_Backup.zip" -Force
